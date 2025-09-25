@@ -1,0 +1,19 @@
+# Manejo de errores personalizados
+ErrorDocument 404 error_404.php
+ErrorDocument 500 error_500.php
+
+# Activar reescritura
+RewriteEngine On
+
+# Redirigir a error_404.php si el archivo no existe
+RewriteCond %{REQUEST_FILENAME} !-f
+RewriteCond %{REQUEST_FILENAME} !-d
+RewriteRule ^(.*)$ error_404.php [L]
+
+# Configuración de seguridad
+<IfModule mod_headers.c>
+    Header always set X-Content-Type-Options "nosniff"
+    Header always set X-Frame-Options "DENY"
+    Header always set X-XSS-Protection "1; mode=block"
+
+
